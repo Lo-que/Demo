@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body onload="init()">
+    <center>
+        <canvas id="canvas" width="400" height="600" style="background:gray">此浏览器不支持该标签</canvas>
+    </center>
+</body>
+<script type="text/javascript">
+/*
+	//获取画布
+	var canvas = document.getElementById('canvas');
+	//获取绘图环境
+	var context = canvas.getContext('2d');
+
+
+
+	//绘制图片
+	//(1)创建图片对象
+	var bgImg = new Image();
+	bgImg.src = 'images/bg.png';
+
+	//(2)等待图片加载完成之后才能绘制
+	bgImg.onload = function () {
+		// context.drawImage(bgImg, 0, 0, 400, 600);
+	}
+
+	//绘制地面
+	var groundImg = new Image();
+	groundImg.src = 'images/ground.png';
+	// groundImg.onload = function () {
+	// 	//绘制的图片对象, 起点坐标, 宽, 高
+	// 	// context.drawImage(groundImg, 0, 550, 400, 200);
+	// }
+
+	//精灵图
+	//上方管道
+	var upPipeImg = new Image();
+	upPipeImg.src = 'images/pipe.png';
+
+	// upPipeImg.onload = function () {
+	// 	//绘制的图片对象, 部分内容的起始点坐标, 部分内容的宽,高 起点坐标, 宽, 高
+	// 	// context.drawImage(upPipeImg, 150, 500, 140, 800, 0, 0, 100, 200);
+	// }
+
+	var downPipeImg = new Image();
+	downPipeImg.src = 'images/pipe.png';
+
+	// downPipeImg.onload = function () {
+	// 	//绘制的图片对象, 部分内容的起始点坐标, 部分内容的宽,高 起点坐标, 宽, 高
+	// 	// context.drawImage(downPipeImg, 0, 500, 140, 800, 0, 350, 100, 200);
+	// }
+
+
+	function init() {
+		//绘制背景
+		context.drawImage(bgImg, 0, 0, 400, 600);
+
+		//绘制地面
+		context.drawImage(groundImg, 0, 550, 400, 200);
+
+		context.drawImage(upPipeImg, 150, 500, 140, 800, 0, 0, 100, 200);
+
+		context.drawImage(downPipeImg, 0, 500, 140, 500, 0, 350, 100, 200);
+
+	}
+	*/
+
+//定义全局变量,便于使用
+var context; //画笔
+var canvas; //画布
+var cwidth = 400;
+var cheight = 600;
+var pipe_distance = 200; //管道之间的距离
+var birdImages = ['images/0.gif', 'images/1.gif', 'images/2.gif']; //小鸟图片数组
+var birdIndex = 0; //当前小鸟的图片
+var tid; //定时器
+var g = 8;
+var score = 0;
+var isScored = false;
+var speed = 8;
+
+// 构造函数-------------------------------------------
+//(1)背景构造函数:属性包含坐标大小  方法包含绘制
+//地面的构造函数  和 背景属性和方法一致
+//src:图片路径
+function Background(x, y, width, height, src) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+
+    var img = new Image();
+    img.src = src;
+    this.img = img;
+    this.draw = backgroundDraw;
+};
+
+function backgroundDraw() {
+    //this 等价于background
+    context.drawImage(this.img, this.x, this.y, this.width, this.height);
+
+}
+
+//上方管道的构造函数
+function UpPipe(x, y, width, height, src) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    var img = new Image();
+    img.src = src;
+    this.img = img;
+
+    this.draw = upPipeDraw;
+}
+
+function upPipeDraw() {
+    context.drawImage(this.img, 150, 500, 140, 800, this.x, this.y, this.width, this.height);
+};
+
+//下方管道的构造函数
+function DownPipe(x, y, width, height, src) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    var img = new Image();
+    img.src = src;
+    this.img = img;
+
+    this.draw = downPipeDraw;
+
+
+}
+
+function downPipeDraw() {
+
+    context.drawImage(this.img, 0, 500, 140, 500, this.x, this.y, this.width, this.height);
+}
+
+
+//小鸟的构造函数
+function Bird(x, y, width, height) {
+
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    var img = new Image();
+    this.img = img;
+    this.draw = birdDraw;
+
+}
+
+function birdDraw() {
+
+    //修改小鸟图片的下标
+    this.img.src = birdImages[birdIndex % 3];
+
+    // var _this =this;
+
+    // this.img.onload = function () {
+
+    context.drawImage(this.img, this.x, this.y, this.width, this.height);
+    // }
+
+
+
+    birdIndex++;
+}
+
+
+
+//创建对象-------------------------------------------
+//创建背景对象
+//new:在内存中开辟一块空间用来存储出来的对象
+var background = new Background(0, 0, cwidth, cheight, 'images/bg.png');
+
+// 创建地面对象
+var ground = new Background(0, 550, cwidth, 200, 'images/ground.png');
+
+//创建上方管道对象
+var upPipe = new UpPipe(0, 0, 100, 200, 'images/pipe.png');
+//创建下方管道对象
+var downPipe = new DownPipe(0, 400, 100, 150, 'images/pipe.png');
+
+//创建小鸟对象
+var bird = new Bird(80, 300, 40, 40);
+
+//body加载完成之后调用init方法
+function init() {
+    //获取画布
+    canvas = document.getElementById('canvas');
+    //获取绘图环境
+    context = canvas.getContext('2d');
+
+    //给document绑定键盘事件
+    document.onkeyup = keyup;
+
+    //开启定时器
+    tid = setInterval(drawAll, 80); //设置的事件间隔>=13
+}
+
+function keyup(e) {
+
+    var event = e || event;
+
+    //keyCode
+    var currentKey = event.keyCode || event.which || event.charCode;
+
+    // 如果判断条件是单一的结果分类,使用switch能够简化代码
+    switch (currentKey) {
+
+        case 32:
+            bird.y -= 80;
+            break;
+
+        case 39:
+            bird.x += 20;
+            break;
+
+        case 37:
+            bird.x -= 30;
+            break;
+
+        case 38:
+            bird.y -= 80;
+            break;
+    }
+
+
+
+}
+
+
+// 绘制所有内容
+// 封装
+
+var count = 0;
+
+function drawAll() {
+
+    //每次绘制之前先将画布清空
+    context.clearRect(0, 0, cwidth, cheight);
+
+    background.draw();
+    ground.draw();
+    upPipe.draw();
+    downPipe.draw();
+    bird.draw();
+
+    caculator();
+}
+
+function caculator() {
+
+    //(0)游戏是否结束
+    //碰撞地面的条件
+    var groundCondition = (bird.y + bird.height) >= ground.y;
+
+    var pipeCondition = ((bird.x <= (upPipe.x + upPipe.width)) && ((bird.x + bird.width) >= upPipe.x)) && ((bird.y <= upPipe.height) || ((bird.y + bird.height) >= downPipe.y));
+
+
+
+    if (groundCondition || pipeCondition) {
+        //游戏结束
+        //终止定时器
+        clearInterval(tid);
+        //得分绘制
+
+        context.fillStyle = '#FFF';
+        context.font = '30px Accent';
+        context.fillText('You  got ' + score + ' !', 110, 100);
+    }
+
+
+    //(1)模拟重力
+    bird.y += g;
+
+    //(2)管道移动
+    // if (管道还能看到) {
+    if ((upPipe.x + upPipe.width) >= 0) {
+        upPipe.x -= speed;
+        downPipe.x -= speed;
+    } else {
+        // 回到最右边
+        //障碍物的高度重新设置
+        // Math.random();//(0 - 1)
+        upPipe.height = Math.random() * 300;
+        downPipe.height = 350 - upPipe.height;
+        downPipe.y = upPipe.height + pipe_distance;
+
+
+        upPipe.x = 400;
+        downPipe.x = 400;
+        isScored = true;
+    }
+
+    if (isScored && bird.x >= (upPipe.x + upPipe.width)) {
+
+        score++;
+        isScored = false;
+
+        // if (score >= 3) {
+
+        // 	g += 5;
+        // 	speed += 3;
+        // }
+    }
+
+}
+</script>
+
+</html>
