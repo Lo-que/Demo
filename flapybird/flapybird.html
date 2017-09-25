@@ -86,7 +86,7 @@ var isScored = false;
 var speed = 8;
 
 // 构造函数-------------------------------------------
-//(1)背景构造函数:属性包含坐标大小  方法包含绘制
+//背景构造函数:属性包含坐标大小  方法包含绘制
 //地面的构造函数  和 背景属性和方法一致
 //src:图片路径
 function Background(x, y, width, height, src) {
@@ -102,7 +102,7 @@ function Background(x, y, width, height, src) {
 };
 
 function backgroundDraw() {
-    //this 等价于background
+    //此时this 等价于background
     context.drawImage(this.img, this.x, this.y, this.width, this.height);
 
 }
@@ -260,7 +260,7 @@ function drawAll() {
 
 function caculator() {
 
-    //(0)游戏是否结束
+    //游戏是否结束
     //碰撞地面的条件
     var groundCondition = (bird.y + bird.height) >= ground.y;
 
@@ -280,10 +280,10 @@ function caculator() {
     }
 
 
-    //(1)模拟重力
+    //模拟重力
     bird.y += g;
 
-    //(2)管道移动
+    //管道移动
     // if (管道还能看到) {
     if ((upPipe.x + upPipe.width) >= 0) {
         upPipe.x -= speed;
@@ -306,12 +306,12 @@ function caculator() {
 
         score++;
         isScored = false;
+        //难度增加
+         if (score >= 3) {
 
-        // if (score >= 3) {
-
-        // 	g += 5;
-        // 	speed += 3;
-        // }
+         	g += 5;
+         	speed += 3;
+        }
     }
 
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		.clip {
+    	position: absolute;
+    	clip: rect(30px 200px 200px 20px);
+		}
+		.clip-path {
+    	-webkit-clip-path: inset(30px 56px 0 20px);
+      clip-path: inset(30px 56px 0 20px);
+		}
+		.clip-path-else {
+    	-webkit-clip-path: inset(10% round 20% 40% 10% 40%);
+      clip-path: inset(10% round 10% 50% 10% 50%);
+		}
+	</style>
+</head>
+<body>
+	<strong>这是原图</strong>
+	<p><img src="../img/test.jpeg"></p>
+	<strong>这是clip剪裁图</strong>
+	<p style="height:191px;"><img src="../img/test.jpeg" class="clip"></p>
+	<strong>这是clip-path剪裁图</strong>
+	<p><img src="../img/test.jpeg" class="clip-path"></p>
+	<strong>这是花里胡哨的clip-path剪裁图</strong>
+	<p><img src="../img/test.jpeg" class="clip-path-else"></p>
+</body>
+</html>

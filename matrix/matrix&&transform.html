@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		.matrix_box {
+			width: 150px;
+			height: 150px;
+			background-color:  #cccccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="matrixBoxOne" class="matrix_box">
+		<p>
+			<button type="button" id="matrixButtonOne">click</button>
+		</p>
+	</div>
+	<div id="matrixBoxTwo" class="matrix_box">
+		<p>
+			<button id="matrixButtonTwo" type="button">click</button>
+		</p>
+	</div>
+</body>
+<script type="text/javascript">
+	(function() {
+    var $ = function(selector) {
+        return document.querySelector(selector)
+    }
+    var $css3Transform = function(element, value) {
+        var arrPriex = ["O", "Ms", "Moz", "Webkit", ""], length = arrPriex.length
+        for (var i=0; i < length; i+=1) {
+            element.style[arrPriex[i] + "Transform"] = value
+        }
+    };
+
+    if ($ && window.addEventListener) {
+        $("#matrixButtonOne").addEventListener("click", function() {
+            $css3Transform($("#matrixBoxOne"), "matrix(1,0,0,1,30,30)")
+        })
+        $("#matrixButtonTwo").addEventListener("click", function() {
+            $css3Transform($("#matrixBoxTwo"), "translate(30px,30px)")
+        })
+    } else {
+        alert("目前浏览器不支持CSS3 transform, 请试试其他浏览器")
+    }
+})()
+</script>
+</html>

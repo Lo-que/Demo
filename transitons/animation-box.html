@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<style type="text/css" media="screen">
+		.anim_image {
+		    -webkit-transition: all 1s ease-in-out;
+		    -moz-transition: all 1s ease-in-out;
+		    -o-transition: all 1s ease-in-out;
+		    transition: all 1s ease-in-out;
+		    cursor:pointer;
+		}
+		.anim_image_top {
+		    position: absolute;
+		    -webkit-transform: scale(0, 0);
+		    opacity: 0;
+		    filter: Alpha(opacity=0);
+		}
+		.anim_box:hover .anim_image_top , .anim_box_hover .anim_image_top {
+		    opacity: 1;
+		    filter: Alpha(opacity=100);
+		    -webkit-transform: scale(1, 1);
+		    -webkit-transform-origin: top right;
+		}
+		.anim_box:hover .anim_image_bottom, .anim_box_hover .anim_image_bottom {
+		    -webkit-transform: scale(0, 0);
+		    -webkit-transform-origin: bottom left;
+		}
+	</style>
+</head>
+<body>
+	<div id="testBox" class="demo anim_box">
+			<img src="../img/test.jpeg" alt="" class="anim_image anim_image_top">
+			<img src="../img/test.jpeg" alt="" class="anim_image anim_image_bottom">
+	</div>
+</body>
+</html>

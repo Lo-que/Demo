@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		.clip-path {
+			transition: 0.4s cublic-bezier(1, -1, 0, 2);
+			-webkit-clip-path: circle(180px at 128px 95px);
+			clip-path: circle(180px at 128px 95px);
+		}
+		.clip-path:hover {
+			-webkit-clip-path: circle(95px at 128px 95px);
+    	clip-path: circle(95px at 128px 95px);
+		}
+	</style>
+</head>
+<body>
+	<strong>鼠标hover:</strong>
+	<p>
+		<img src="../img/test.jpeg" class="clip-path">
+	</p>
+</body>
+</html>
