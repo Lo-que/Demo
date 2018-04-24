@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		*{
+      margin:0;
+      padding:0;
+}
+ul,li{
+      list-style: none;
+}
+.floatfix {
+      *zoom: 1;
+}
+.floatfix:after {
+      content: "";
+      display: table;
+      clear: both;
+}
+.slider-contaner{
+      width:100%;
+      position:relative;
+}
+.slider,.slider-item{
+      padding-bottom:40%;
+}
+.slider-item{
+      width:100%;
+      position:absolute;
+      background-size:100%;
+}
+.slider-item1{
+      background-image:url(imgs/test.jpeg);
+}
+.slider-item2{
+      background-image:url(imgs/test.jpeg);
+}
+.slider-item3{
+      background-image:url(imgs/test.jpeg);
+}
+.slider-item4{
+      background-image:url(imgs/test.jpeg);
+}
+.slider-item5{
+      background-image:url(imgs/test.jpeg);
+}
+
+@keyframes fade{
+0%{
+      opacity:0;
+      z-index:2;
+}
+5%{
+      opacity:1;
+      z-index: 1;
+}
+20%{
+      opacity:1;
+      z-index:1;
+}
+25%{
+      opacity:0;
+      z-index:0;
+}
+100%{
+      opacity:0;
+      z-index:0;
+}
+}
+
+.slider-item + .slider-item{
+      opacity:0;
+}
+.slider-item1{
+      animation-delay: -1s;
+}
+.slider-item2{
+      animation-delay: 3s;
+}
+.slider-item3{
+      animation-delay: 7s;
+}
+.slider-item4{
+      animation-delay: 11s;
+}
+.slider-item5{
+      animation-delay: 15s;
+}
+
+	</style>
+</head>
+<body>
+	<section class="slider-contaner">
+    <ul class="slider">
+        <li class="slider-item slider-item1"></li>
+        <li class="slider-item slider-item2"></li>
+        <li class="slider-item slider-item3"></li>
+        <li class="slider-item slider-item4"></li>
+        <li class="slider-item slider-item5"></li>
+    </ul>
+</section>
+</body>
+</html>
