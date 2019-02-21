@@ -3,7 +3,7 @@
 
 矩阵用例
 
-1.matrix&&translate.html `matrix(1,0,0,1,30,30) ==translate(30px,30px)` 此时 矩阵偏移元素的中心点为(0,0)，即`x=0,y=0,a=1,b=0,c=0,d=1,e=30,f=30` 经过transform之后为`x = ax + cy + e = 1*0 + 0*0 + 30 = 30`, `y = bx + cy + f =0*0 + 1*0 + 30 = 30` 
+1.matrix&&translate.html `matrix(1,0,0,1,30,30) ==translate(30px,30px)` 此时 矩阵偏移元素的中心点为(0,0)，即`x=0,y=0,a=1,b=0,c=0,d=1,e=30,f=30` 经过transform之后为`x = ax + cy + e = 1*0 + 0*0 + 30 = 30`, `y = bx + dy + f =0*0 + 1*0 + 30 = 30` 
 
 2. to be continued...
 
